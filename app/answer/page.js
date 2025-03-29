@@ -82,7 +82,7 @@ export default function Answer() {
                     className={`btn btn-bookmark ${isBookmarked ? 'selected' : ''}`}
                     onClick={handleBookmarkClick}
                 >
-                    ブックマーク
+                    Bookmark
                 </button>
             </div>
 
