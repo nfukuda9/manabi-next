@@ -1,7 +1,38 @@
+'use client';
+
 import Link from 'next/link' 
 import Image from 'next/image'
 
+import { useState } from 'react';
+
 export default function Answer() {
+
+  // 状態管理用のstate
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [isIncorrect, setIsIncorrect] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  // 正解ボタンのクリックハンドラ
+  const handleCorrectClick = () => {
+    setIsCorrect(!isCorrect);
+    if (isIncorrect) {
+      setIsIncorrect(false);
+    }
+  };
+
+  // 不正解ボタンのクリックハンドラ
+  const handleIncorrectClick = () => {
+    setIsIncorrect(!isIncorrect);
+    if (isCorrect) {
+      setIsCorrect(false);
+    }
+  };
+
+  // ブックマークボタンのクリックハンドラ
+  const handleBookmarkClick = () => {
+    setIsBookmarked(!isBookmarked);
+  };
+
   return (
     <>
     <div className="page-header wrapper">
@@ -33,12 +64,28 @@ export default function Answer() {
                 <p>山梨県</p>
             </div>
             <div className="answer-buttons">
-                <Link href="#" className="btn btn-correct">正解</Link>
-                <Link href="#" className="btn btn-incorrect">不正解</Link>
-                <Link href="#" className="btn btn-bookmark">Bookmark</Link>
+                <button 
+                    className={`btn btn-correct ${isCorrect ? 'selected' : ''}`}
+                    onClick={handleCorrectClick}
+                >
+                    正解
+                </button>
 
+                <button 
+                    className={`btn btn-incorrect ${isIncorrect ? 'selected' : ''}`}
+                    onClick={handleIncorrectClick}
+                >
+                    不正解
+                </button>
+
+                <button 
+                    className={`btn btn-bookmark ${isBookmarked ? 'selected' : ''}`}
+                    onClick={handleBookmarkClick}
+                >
+                    ブックマーク
+                </button>
             </div>
-      
+
             <div className="answer-navigation">
                 <Link href="question" className="btn btn-navigation">戻る</Link>
                 <Link href="question" className="btn btn-navigation">進む</Link>
