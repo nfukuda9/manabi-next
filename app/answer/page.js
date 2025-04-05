@@ -2,10 +2,10 @@
 
 import Link from 'next/link' 
 import Image from 'next/image'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function Answer() {
+function AnswerContent() {
   // URLパラメータからansとidを取得
   const searchParams = useSearchParams();
   const answer = searchParams.get('ans');
@@ -151,4 +151,12 @@ export default function Answer() {
 
     </>
   )
+}
+
+export default function Answer() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AnswerContent />
+    </Suspense>
+  );
 }
