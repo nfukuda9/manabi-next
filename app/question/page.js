@@ -11,8 +11,7 @@ const Question = () => {
     useEffect(() => {
         const getSingleExam = async() => {
             try {
-                const response = await fetch(`http://localhost:3000/api/exam/random`);
-                console.log("■response = " + response);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/exam/random`);
                 const jsonData = await response.json();
                 setSingleExam(jsonData.exam);
             } catch (error) {
