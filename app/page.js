@@ -7,7 +7,12 @@ export default function Home() {
     <>
       <div className="cover cover-home">
         <Header />
-        <h2 className="page-title font-english">Manabi Space<br />まなすぺ</h2>
+        <h2 className="page-title font-english">
+          Manabi Space
+          <div style={{ fontSize: '1.5rem', marginTop: '1.5rem' }}>
+            〜まなびって、エンタメじゃない？〜
+          </div>
+        </h2>
       </div>
 
       <section className="about">
