@@ -2,17 +2,10 @@
 
 import Link from 'next/link' 
 import Image from 'next/image'
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+
+import { useState } from 'react';
 
 export default function Answer() {
-  // URLパラメータからansとidを取得
-  const searchParams = useSearchParams();
-  const answer = searchParams.get('ans');
-  const id = searchParams.get('id');
-  const category = searchParams.get('category');
-  const explanation = searchParams.get('explanation');
-  const difficulty = searchParams.get('difficulty');  
 
   // 状態管理用のstate
   const [isCorrect, setIsCorrect] = useState(false);
@@ -65,15 +58,10 @@ export default function Answer() {
     <div className="answer-container wrapper">
         <div className="answer-box">
             <div className="answer-meta">
-                <p>{category} / 問題No.{id || '1'}の解答</p>
-                <p className="difficulty">難易度: {difficulty || '指定なし'}</p>
+                <p>ワイン生産地 / 問題No.1の解答</p>
             </div>
             <div className="answer-content">
-                <h3>解答</h3>
-                <p>{answer || '解答データがありません'}</p>
-                
-                <h3 className="explanation-title">解説</h3>
-                <p className="explanation-text">{explanation || '解説はありません'}</p>
+                <p>山梨県</p>
             </div>
             <div className="answer-buttons">
                 <button 
@@ -99,49 +87,11 @@ export default function Answer() {
             </div>
 
             <div className="answer-navigation">
-                <Link href={`/question?id=${id || ''}`} className="btn btn-navigation">問題に戻る</Link>
-                <Link href="/question" className="btn btn-navigation">次の問題へ</Link>
+                <Link href="question" className="btn btn-navigation">戻る</Link>
+                <Link href="question" className="btn btn-navigation">進む</Link>
             </div>
         </div>
     </div>
-
-    {/* <div className="answer-container wrapper">
-        <div className="answer-box">
-            <div className="answer-meta">
-                <p>{category} / 問題No.{id || '1'}の解答</p>
-            </div>
-            <div className="answer-content">
-                <p>{answer || '解答データがありません'}</p>
-            </div>
-            <div className="answer-buttons">
-                <button 
-                    className={`btn btn-correct ${isCorrect ? 'selected' : ''}`}
-                    onClick={handleCorrectClick}
-                >
-                    正解
-                </button>
-
-                <button 
-                    className={`btn btn-incorrect ${isIncorrect ? 'selected' : ''}`}
-                    onClick={handleIncorrectClick}
-                >
-                    不正解
-                </button>
-
-                <button 
-                    className={`btn btn-bookmark ${isBookmarked ? 'selected' : ''}`}
-                    onClick={handleBookmarkClick}
-                >
-                    Bookmark
-                </button>
-            </div>
-
-            <div className="answer-navigation">
-                <Link href={`/question?id=${id || ''}`} className="btn btn-navigation">問題に戻る</Link>
-                <Link href="/question" className="btn btn-navigation">次の問題へ</Link>
-            </div>
-        </div>
-    </div> */}
 
     <footer className="page-footer">
         <div className="copyright">

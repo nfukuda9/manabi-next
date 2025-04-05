@@ -2,9 +2,38 @@
 
 import Link from 'next/link' 
 import Image from 'next/image'
+import { useEffect, useState } from 'react';
 
-export default function Question() {
-  return (
+const Question = () => {
+    const [singleExam, setSingleExam] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getSingleExam = async() => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/exam/random`);
+                console.log("■response = " + response);
+                const jsonData = await response.json();
+                setSingleExam(jsonData.exam);
+            } catch (error) {
+                console.error("Failed to fetch exam:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getSingleExam();
+    }, []);
+
+    if (loading) {
+        return <div className="loading">読み込み中...</div>;
+    }
+
+    if (!singleExam) {
+        return <div className="error">問題の読み込みに失敗しました。</div>;
+    }
+
+    return (
     <>
     <div className="page-header wrapper">
         <h1 className="align-center">
@@ -29,13 +58,14 @@ export default function Question() {
     <div className="question-container wrapper">
         <div className="question-box">
             <div className="question-meta">
-                <p>ワイン生産地 / 問題No.1</p>
+                <p>{singleExam.categories.name} / 問題No.{singleExam.id || '1'}</p>
             </div>
             <div className="question-content">
-                <p>日本の都道府県で、最もワイン生産量の多いところはどこか？</p>
+                <p>{singleExam.question}</p>
             </div>
             <div className="question-buttons">
-                <Link href="answer" className="btn btn-understood">解答へ</Link>
+                {/* <Link href={`/answer?id=${singleExam.id}&ans=${encodeURIComponent(singleExam.answer)}`} className="btn btn-understood">解答へ</Link> */}
+                <Link href={`/answer?id=${singleExam.id}&ans=${encodeURIComponent(singleExam.answer)}&category=${encodeURIComponent(singleExam.categories.name)}&explanation=${encodeURIComponent(singleExam.explanation)}&difficulty=${singleExam.difficulty}`} className="btn btn-understood">解答へ</Link>
             </div>
         </div>
     </div>
@@ -49,3 +79,5 @@ export default function Question() {
     </>
   )
 }
+
+export default Question

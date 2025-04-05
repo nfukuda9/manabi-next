@@ -1,5 +1,6 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
           単語帳形式で、問題と解答が流れる形式としています。是非チャレンジしてみてください。
         </p>
         <div className="align-center">
-          <a href="/question" className="btn">問題をやってみる</a>
+          <Link href="/question" className="btn">問題をやってみる</Link>
         </div>
       </section>
 
